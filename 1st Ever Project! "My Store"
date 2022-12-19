@@ -1,0 +1,36 @@
+CREATE TABLE My_Store (id INTEGER PRIMARY KEY, item TEXT, price INTEGER, quantity INTEGER, color TEXT, size TEXT);
+
+INSERT INTO My_Store VALUES (1, "Blouse", 20, 50, "Blue", "Small");
+
+INSERT INTO My_Store VALUES (2, "Blouse", 25, 50, "Blue", "Medium");
+
+INSERT INTO My_Store VALUES (3, "Blouse", 20, 50, "Blue", "Large");
+
+INSERT INTO My_Store VALUES (4, "Jacket", 25, 40, "Brown", "Small");
+
+INSERT INTO My_Store VALUES (5, "Jacket", 25, 40, "Brown", "Medium");
+
+INSERT INTO My_Store VALUES (6, "Jacket", 25, 40, "Brown", "Large");
+
+INSERT INTO My_Store VALUES (7, "Jeans", 30, 30, "Dark Wash", "Small");
+
+INSERT INTO My_Store VALUES (8, "Jeans", 25, 40, "Dark Wash", "Medium");
+
+
+INSERT INTO My_Store VALUES (9, "Jeans", 25, 40, "Dark Wash", "Large");
+
+INSERT INTO My_Store VALUES (10, "Gym Shoes", 25, 40, "Boring", "All");
+
+INSERT INTO My_Store VALUES (11, "Falts", 25, 40, "Boring", "All");
+
+INSERT INTO My_Store VALUES (12, "Heels", 60, 40, "Fabulous Red", "All");
+
+INSERT INTO My_Store VALUES (13, "Socks", 25, 40, "Boring", "All");
+
+INSERT INTO My_Store VALUES (14, "Pajamas", 35, 40, "Cute", "All");
+
+INSERT INTO My_Store VALUES (15, "Hats", 5, 40, "Adorable", "All");
+SELECT * FROM My_Store ORDER BY price;
+SELECT item, SUM (quantity) FROM My_Store GROUP BY item;
+
+SELECT SUM(quantity) FROM My_Store
