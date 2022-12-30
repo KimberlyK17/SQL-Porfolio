@@ -1,0 +1,116 @@
+/* Put your data in here and query it! */
+CREATE TABLE marvels (ID INTEGER PRIMARY KEY,
+    name TEXT,
+    popularity INTEGER,
+    alignment TEXT,
+    gender TEXT, 
+    height_m NUMERIC,
+    weight_kg NUMERIC,
+    hometown TEXT,
+    intelligence INTEGER,
+    strength INTEGER,
+    speed INTEGER,
+    durability INTEGER,
+    energy_Projection INTEGER,
+    fighting_Skills INTEGER);
+    
+INSERT INTO marvels VALUES(1, "Spider Man", 1, "Good", "Male", 1.78, 75.75, "USA", 4, 4, 3, 3, 1, 4); 
+INSERT INTO marvels VALUES(2, "Iron Man", 20, "Neutral", "Male", 1.98, 102.58, "USA", 6, 6, 5, 6, 6, 4); 
+INSERT INTO marvels VALUES(3, "Hulk", 18, "Neutral", "Male", 2.44, 635.29, "USA", 1, 7, 3, 7, 5, 4); 
+INSERT INTO marvels VALUES(4, "Wolverine", 3, "Good", "Male", 1.6, 88.46, "Canada", 2, 4, 2, 4, 1, 7);
+INSERT INTO marvels VALUES(5, "Thor", 5, "Good", "Male", 1.98, 290.3, "Asgard", 2, 7, 7, 6, 6, 4);
+INSERT INTO marvels VALUES(6, "Green Goblin", 91, "Bad", "Male", 1.93, 174.63, "USA", 4, 4, 3, 4, 3, 3);
+INSERT INTO marvels VALUES(7, "Magneto", 11, "Neutral", "Male", 1.88, 86.18, "Germany", 6, 3, 5, 4, 6, 4);
+INSERT INTO marvels VALUES(8, "Thanos", 47, "Bad", "Male", 2.01, 446.79, "Titan", 6, 7, 7, 6, 6, 4);
+INSERT INTO marvels VALUES(9, "Loki", 32, "Bad", "Male", 1.93, 238.14, "Jotunheim", 5, 5, 7, 6, 6, 3);
+INSERT INTO marvels VALUES(10, "Doctor Doom", 19, "Bad", "Male", 2.01, 188.24, "Latveria", 6, 4, 5, 6, 6, 4);
+INSERT INTO marvels VALUES(11, "Jean Grey", 8, "Good", "Female", 1.68, 52.16, "USA", 3, 2, 7, 7, 7, 4);
+INSERT INTO marvels VALUES(12, "Rogue", 4, "Good", "Female", 1.73, 54.43, "USA", 7, 7, 7, 7, 7, 7);
+INSERT INTO marvels VALUES(13, "Storm", 2, "Good", "Female", 1.80, 66, "Kenya", 2, 2, 3, 2, 5, 4);
+INSERT INTO marvels VALUES(14, "Nightcrawler", 6, "Good", "Male", 1.75, 73, "Germany", 3, 2, 7, 2, 1, 3);
+INSERT INTO marvels VALUES(15, "Gambit", 7, "Good", "Male", 1.88, 81, "EUA", 2, 2, 2, 2, 2, 4);
+INSERT INTO marvels VALUES(16, "Captain America", 9, "Good", "Male", 1.88, 108, "EUA", 3, 3, 2, 3, 1, 6);
+INSERT INTO marvels VALUES(17, "Cyclops", 10, "Good", "Male", 1.90, 88, "EUA", 3, 2, 2, 2, 5, 4);
+INSERT INTO marvels VALUES(18, "Emma Frost", 12, "Neutral", "Female", 1.78, 65, "EUA", 4, 4, 2, 5, 5, 3);
+INSERT INTO marvels VALUES(19, "Kitty Pryde", 13, "Good", "Female", 1.68, 50, "EUA", 4, 2, 2, 3, 1, 5);
+INSERT INTO marvels VALUES(20, "Daredevil", 14, "Good", "Male", 1.83, 91, "EUA", 3, 3, 2, 2, 4, 5);
+INSERT INTO marvels VALUES(21, "Punisher", 50, "Neutral", "Male", 1.85, 91, "EUA", 3, 3, 2, 2, 1, 6);
+INSERT INTO marvels VALUES(22, "Silver Surfer", 33, "Good", "Male", 1.93, 102, "Zenn-La", 3, 7, 7, 6, 7, 2);
+INSERT INTO marvels VALUES(23, "Ghost Rider", 86, "Good", "Male", 1.88, 99, "EUA", 2, 4, 3, 5, 4, 2);
+INSERT INTO marvels VALUES(24, "Venon", 78, "Neutral", "Male", 1.90, 118, "EUA", 3, 4, 2, 6, 1, 4);
+INSERT INTO marvels VALUES(25, "Juggernaut", 76, "Neutral", "Male", 2.87, 862, "EUA", 2, 7, 2, 7, 1, 4);
+INSERT INTO marvels VALUES(26, "Professor X", 58, "Good", "Male", 1.83, 86, "EUA", 5, 2, 2, 2, 5, 3);
+
+
+SELECT * FROM marvels;
+
+/*Rank by Popularity*/
+SELECT * FROM marvels ORDER BY popularity;
+
+/* Total Number of Good, Bad, & Neutral Characters*/
+
+SELECT alignment, COUNT(alignment) AS Number_of_Characters FROM marvels Group BY alignment ;
+
+/*Height Min, Max, Average*/
+
+SELECT name, MAX(height_m) FROM marvels;
+
+SELECT name, MIN(height_m) FROM marvels;
+
+SELECT AVG(height_m) FROM marvels;
+
+/* Weight Min, Max, Average*/
+
+SELECT name, MAX(weight_kg) FROM marvels;
+
+SELECT name, MIN(weight_kg) FROM marvels;
+
+SELECT AVG(weight_kg) FROM marvels;
+
+/* Whos is taller & weighs more than the average*/
+SELECT name, height_m AS Taller_Than_Average FROM marvels WHERE height_m > (SELECT AVG(height_m) FROM marvels) GROUP BY height_m;
+
+SELECT name, weight_kg AS Weighs_More_Than_Average FROM marvels WHERE weight_kg > (SELECT AVG(weight_kg) FROM marvels);
+
+SELECT name AS Characters_Who_Are_Taller_And_Heavier_Than_Average, weight_kg AS Weighs_More_Than_Average, height_m FROM marvels WHERE weight_kg > (SELECT AVG(weight_kg) FROM marvels) AND height_m > (SELECT AVG(height_m) FROM marvels) GROUP BY height_m;
+
+/* Cleaner version*/
+SELECT name AS Characters_Who_Are_Taller_And_Heavier_Than_Average FROM marvels WHERE weight_kg > (SELECT AVG(weight_kg) FROM marvels) AND height_m > (SELECT AVG(height_m) FROM marvels) GROUP BY height_m;
+
+/* Who is the tallest good, bad, and neutral characters*/
+
+
+SELECT name AS Tallest_Character, alignment FROM marvels GROUP BY alignment HAVING MAX(height_m);
+
+
+/* Who is the smartest good, bad, and neutral characters*/
+SELECT name AS Smartest_Character, intelligence, alignment FROM marvels GROUP BY alignment HAVING MAX(intelligence);
+
+/* Who is the smartest and strongest good, bad, and neutral characters, & overall*/
+SELECT name AS smartest_and_strongest, alignment, intelligence,strength FROM marvels GROUP BY alignment HAVING MAX(intelligence) AND MAX (strength);
+
+/* How many male and female characters? */
+
+SELECT COUNT(gender)AS FEMALES FROM marvels WHERE gender like "female";
+
+SELECT COUNT(gender)AS MALES FROM marvels WHERE gender like "male";
+
+/* Rank Characters based on intelligence, speed, durability, energy projection, fighting skills by ELITE or AVERAGE (This satisfies the CASE question)*/
+
+SELECT name, SUM(intelligence + speed + durability + energy_Projection + fighting_Skills) AS TOTAL_SCORE_OF_SUPERHEROS_SKILLS 
+from marvels GROUP BY name ORDER by TOTAL_SCORE_OF_SUPERHEROS_SKILLS DESC;
+
+SELECT AVG(intelligence+speed+durability+energy_projection+fighting_skills) AS The_AVERAGE_of_the_All_Superheros_Individuals_TOTAL_SCORES from marvels;
+
+SELECT name, AVG(intelligence+speed+durability+energy_projection+fighting_skills)/5 AS AVERAGE_Overall_Score from marvels GROUP BY name ORDER BY AVERAGE_Overall_Score DESC;
+
+
+SELECT AVG(intelligence+speed+durability+energy_projection+fighting_skills)/5 AS The_AVERAGE_Overall_Score from marvels;
+
+
+SELECT name, AVG(intelligence+speed+durability+energy_projection+fighting_skills)/5 AS AVERAGE_Overall_Score, 
+CASE
+WHEN AVG(intelligence+speed+durability+energy_projection+fighting_skills)/5 >= 4 THEN "ELITE"
+WHEN AVG(intelligence+speed+durability+energy_projection+fighting_skills)/5 < 4 THEN "Average"
+END AS Superhero_Category
+from marvels GROUP BY name ORDER BY AVERAGE_Overall_Score DESC;
